@@ -2,7 +2,7 @@ import json
 import requests
 import datetime
 from dateutil.parser import parse
-import api_keys
+import env_vars
 
 class coords:
     def __init__(self, latitude: float, longitude: float):
@@ -70,7 +70,7 @@ def resolve_lat_and_long(country: str, city: str, state: str = '') -> coords:
     """
         
     api_url = f'https://api.api-ninjas.com/v1/geocoding?country={country}&city={city}&state={state}'
-    response = requests.get(api_url, headers={'X-Api-Key': api_keys.API_NINJAS_KEY})
+    response = requests.get(api_url, headers={'X-Api-Key': env_vars.API_NINJAS_KEY})
     ret = coords(0, 0)
     data = {}
     arr = []
