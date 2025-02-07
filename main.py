@@ -81,8 +81,8 @@ while (True):
             voice_input = str(voice_input).lower()
 
             print(f'Heard: {voice_input}')
-            if (voice_input.startswith("miku")): # Check to see if the audio message was meant for the LLM
-                voice_input = voice_input.removeprefix("miku")
+            if (voice_input.startswith(env_vars.LLM_NAME)): # Check to see if the audio message was meant for the LLM
+                voice_input = voice_input.removeprefix(env_vars.LLM_NAME)
                 res = send_message('user', voice_input) # Send transcribed audio message to LLM
                 handle_response(res) # Handle the LLM's response
     except sr.RequestError as e:
