@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from tools import *
 import tts
 import mqtt
+import env_vars
 
 
 r = sr.Recognizer()
@@ -39,7 +40,7 @@ def send_message(
     message_log.append({'role': role, 'content': message}) # Append new message to message array so LLM has memory of this
 
     response = ollama.chat(
-        'miku',
+        env_vars.LLM_NAME,
         messages=message_log, # Provide array of past messages so LLM can remember past prompts and responses while handling this one
         tools=[get_weather, get_time, save_file],
     ) # Actually send message to LLM
