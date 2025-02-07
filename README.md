@@ -15,7 +15,7 @@ There are various API keys that are needed as well. All of which are free, and y
 - Likely more to come.
 
 
-After installing and starting Ollama, as well as running Qwen2.5 refer to the following step-by-step guide to install and run llm-assistant.
+After installing and starting Ollama, as well as running Qwen2.5, refer to the following step-by-step guide to install and run llm-assistant.
 
 ### Step-By-Step
 
