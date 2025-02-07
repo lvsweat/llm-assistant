@@ -2,13 +2,12 @@
 # LLM-Assistant
 
 LLM-Assistant is meant to be a home assistant that can help the user with home automations, their computer, general questions, and their schedule using Qwen2.5:3b through Ollama.
+
 ## Run Locally
 
 To run locally you are required to have Ollama installed and running. You can find a rundown of Ollama and install instructions [here](https://github.com/ollama/ollama)
 
-This specific project uses a configured version of the LLM Qwen2.5:3b named miku.
-
-Qwen2.5:3b or less distilled versions should work just fine as is, just remember to change the ```LLM_NAME``` variable in your .env file.
+This specific project uses a locally configured version of the LLM Qwen2.5:3b. Unconfigured as well as less distilled versions of Qwen2.5 should work just fine as is, just remember to change the ```LLM_NAME``` variable in your ```.env``` file to whatever name you set on for it in Ollama.
 
 There are various API keys that are needed as well. All of which are free, and you can find here:
 
