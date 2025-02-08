@@ -5,7 +5,7 @@ LLM-Assistant is meant to be a home assistant that can help the user with home a
 
 ## Run Locally
 
-To run locally you are required to have Ollama installed and running. You can find a rundown of Ollama and install instructions [here](https://github.com/ollama/ollama)
+To run locally you are required to have Ollama as well as Mosquitto installed and running. You can find a rundown of Ollama and install instructions [here](https://github.com/ollama/ollama) and the Moquitto website [here](https://mosquitto.org/)
 
 This specific project uses a locally configured version of the LLM Qwen2.5:3b. Unconfigured as well as less distilled versions of Qwen2.5 should work just fine as is, just remember to change the ```LLM_NAME``` variable in your ```.env``` file to whatever name you set on for it in Ollama.
 
@@ -15,7 +15,7 @@ There are various API keys that are needed as well. All of which are free, and y
 - Likely more to come.
 
 
-After installing and starting Ollama, as well as running Qwen2.5, refer to the following step-by-step guide to install and run llm-assistant.
+After installing and starting Ollama and Mosquitto, as well as running Qwen2.5, refer to the following step-by-step guide to install and run llm-assistant.
 
 ### Step-By-Step
 
