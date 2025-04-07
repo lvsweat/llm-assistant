@@ -5,7 +5,7 @@ LLM-Assistant is meant to be a home assistant that can help the user with home a
 
 ## Run Locally
 
-To run locally you are required to have Ollama as well as Mosquitto installed and running. You can find a rundown of Ollama and install instructions [here](https://github.com/ollama/ollama) and the Moquitto website [here](https://mosquitto.org/)
+To run locally you are required to have Ollama as well as Mosquitto installed and running. You can find a rundown of Ollama and install instructions [here](https://github.com/ollama/ollama) and the Mosquitto website [here](https://mosquitto.org/)
 
 This specific project uses a locally configured version of the LLM Qwen2.5:3b. Unconfigured as well as less distilled versions of Qwen2.5 should work just fine as is, just remember to change the ```LLM_NAME``` variable in your ```.env``` file to whatever name you set on for it in Ollama.
 
@@ -42,6 +42,7 @@ In the project directory add the following to a file named ```.env``` replacing 
 ```bash
   API_NINJAS_KEY=YOUR_API_NINJAS_KEY
   LLM_NAME=YOUR_OLLAMA_MODEL_NAME
+  OLLAMA_URL=YOUR_OLLAMA_URL # This should be http://127.0.0.1:11434 by default if you are hosting Ollama on your localhost
 ```
 
 Run the assistant
@@ -49,3 +50,14 @@ Run the assistant
 ```bash
   python main.py
 ```
+
+## Features
+
+
+|    Feature    |     Status    |
+| ------------- | ------------- |
+| TTS | Done  |
+| STT | Functional, but not optimal |
+| Basic chatting | Done |
+| General tools | Some implemented, WIP |
+| Generic MQTT integration | Groundwork laid, WIP |

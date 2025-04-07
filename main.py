@@ -1,5 +1,5 @@
 import ollama
-from ollama import ChatResponse, Message, Tool, Options
+from ollama import ChatResponse, Message, Tool, Options, Client
 from typing import Optional, Literal, Sequence, Union, Mapping, Callable, Any
 from pydantic.json_schema import JsonSchemaValue
 import os
@@ -12,11 +12,17 @@ import tts
 import mqtt
 import env_vars
 
+# Initialize speech recognition
+stt = sr.Recognizer()
 
-r = sr.Recognizer()
+# Explicitly defining a client to use in case Ollama is hosted on a LAN device rather than localhost
+client = Client(
+    host=env_vars.OLLAMA_URL
+)
 
 load_dotenv()
 
+# Laying out tool functions for LLM to use
 available_functions = {
   'get_weather': get_weather,
   'get_time': get_time,
@@ -26,7 +32,7 @@ available_functions = {
 message_log = []
 
 
-
+ # Just a wrapped version of Ollamas chat function to avoid providing extra args that will always be the same
 def send_message(
     role: str = 'user',
     message: str = '',
@@ -39,7 +45,7 @@ def send_message(
 
     message_log.append({'role': role, 'content': message}) # Append new message to message array so LLM has memory of this
 
-    response = ollama.chat(
+    response = client.chat(
         env_vars.LLM_NAME,
         messages=message_log, # Provide array of past messages so LLM can remember past prompts and responses while handling this one
         tools=[get_weather, get_time, save_file],
@@ -68,16 +74,25 @@ def handle_response(response: ChatResponse):
     return
 
 
+def mqtt_on_message_postcall(msg: str):
+    res = send_message('tool', msg)
+    handle_response(res)
+    return
+
+
+mqtt.on_message_postcall = mqtt_on_message_postcall
 mqtt.mqtt_connect()
 
+
+# Main loop to handle speech-to-text microphone input
 while (True):
     try:
        with sr.Microphone() as source2:
-            r.adjust_for_ambient_noise(source2, duration=0.2)
+            stt.adjust_for_ambient_noise(source2, duration=0.2)
+            print('Listening....')
+            audio2 = stt.listen(source2) # Record phrase from microphone
 
-            audio2 = r.listen(source2) # Record phrase from microphone
-
-            voice_input = r.recognize_google(audio2) # Transcribe the audio message
+            voice_input = stt.recognize_google(audio2) # Transcribe the audio message
             voice_input = str(voice_input).lower()
 
             print(f'Heard: {voice_input}')
@@ -89,6 +104,3 @@ while (True):
         print(f'Could not request results: {e}')
     except sr.UnknownValueError:
         print(f'Unknown error occurred')
-
-    
-
